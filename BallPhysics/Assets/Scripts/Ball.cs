@@ -76,5 +76,15 @@ namespace PhysicsAssignments.Object
             m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
             m_active = false;
         }
+
+        public void SetMass(float m)
+        {
+            m_Mass = m;
+        }
+
+        public void SetStartVelo(Vector3 v)
+        {
+            m_body.Velocity = v;
+        }
     }
 }
