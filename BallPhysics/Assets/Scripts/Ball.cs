@@ -36,8 +36,8 @@ namespace PhysicsAssignments.Object
 
         void FixedUpdate()
         {
-            //if (!m_active)
-            //    return;
+            if (!m_active)
+                return;
 
             if (transform.position.y > m_ground)
             {
@@ -63,6 +63,9 @@ namespace PhysicsAssignments.Object
 
         public void Activate()
         {
+            if (m_active)
+                return;
+
             m_active = true;
             m_resetPos = transform.position;
         }
