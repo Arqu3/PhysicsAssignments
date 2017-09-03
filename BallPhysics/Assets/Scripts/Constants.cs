@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhysicsAssignments.Constants
+namespace PhysicsAssignments
 {
     /// <summary>
     /// Class containing physics-related constant values

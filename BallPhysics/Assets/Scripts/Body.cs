@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PhysicsAssignments.Body
+namespace PhysicsAssignments
 {
     public class Body
     {
