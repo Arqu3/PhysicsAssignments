@@ -43,7 +43,12 @@ namespace PhysicsAssignments.Menu
 
         public void StartSimulation()
         {
+            m_Ball.Activate();
+        }
 
+        public void Reset()
+        {
+            m_Ball.Reset();
         }
     }
 }
