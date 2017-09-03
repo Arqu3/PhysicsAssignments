@@ -17,6 +17,7 @@ namespace PhysicsAssignments.Object
         #region Private fields
 
         private Vector3 m_resetPos;
+        private Vector3 m_startVelo;
 
         private bool m_hitGround = false;
         private bool m_active = false;
@@ -48,7 +49,7 @@ namespace PhysicsAssignments.Object
 
             if (transform.position.y < m_ground && !m_hitGround)
             {
-                m_body.Velocity *= -0.5f;
+                m_body.Velocity = new Vector3(m_body.Velocity.x*0.5f, m_body.Velocity.y*-0.5f);
                 m_hitGround = true;
 
                 if (m_body.Velocity.magnitude < 0.01f)
@@ -73,7 +74,7 @@ namespace PhysicsAssignments.Object
         public void Reset()
         {
             transform.position = m_resetPos;
-            m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
+            m_body = new Body(transform.position, m_startVelo, Vector3.zero);
             m_active = false;
         }
 
@@ -85,6 +86,7 @@ namespace PhysicsAssignments.Object
         public void SetStartVelo(Vector3 v)
         {
             m_body.Velocity = v;
+            m_startVelo = v;
         }
     }
 }
