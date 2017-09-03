@@ -8,7 +8,7 @@ namespace PhysicsAssignments.Object
         #region Private exposed fields
 
         [Header("Mass (KG)")]
-        [Range(0.0f, 10000.0f)]
+        [Range(0.0f, 15.0f)]
         [SerializeField]
         float m_Mass = 10.0f;
 
@@ -30,14 +30,14 @@ namespace PhysicsAssignments.Object
         void Start()
         {
             m_resetPos = transform.position;
-            m_ground = GetComponent<SpriteRenderer>().bounds.size.x/2 + 0.4f;
+            m_ground = GetComponent<SpriteRenderer>().bounds.size.x/2 + 0.5f;
             m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
         }
 
         void FixedUpdate()
         {
-            if (!m_active)
-                return;
+            //if (!m_active)
+            //    return;
 
             if (transform.position.y > m_ground)
             {
@@ -64,12 +64,14 @@ namespace PhysicsAssignments.Object
         public void Activate()
         {
             m_active = true;
+            m_resetPos = transform.position;
         }
 
         public void Reset()
         {
             transform.position = m_resetPos;
             m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
+            m_active = false;
         }
     }
 }
