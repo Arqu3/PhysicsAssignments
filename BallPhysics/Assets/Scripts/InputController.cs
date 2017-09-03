@@ -16,7 +16,8 @@ namespace PhysicsAssignments.Menu
         //Preset vars
         float m_StartXVel = 0.0f;
         float m_StartYVel = 0.0f;
-        float m_StartMass = 0.0f;
+        float m_StartMass = 10.0f;
+        float m_StartHeight = 8.0f;
 
         //Simulation vars
         bool m_Active = false;
@@ -36,32 +37,36 @@ namespace PhysicsAssignments.Menu
 
         public void SetBallStartHeight(float value)
         {
+            Vector3 pos = m_Ball.transform.position;
+            m_StartHeight = pos.y = 1f + 15.0f * value;
             if (m_Active) return;
 
-            Vector3 pos = m_Ball.transform.position;
-            pos.y = 1f + 15.0f * value;
             m_Ball.transform.position = pos;
         }
 
         public void SetBallMass(float value)
         {
+            m_StartMass = 15f * value;
+            if (m_StartMass <= 0.0f) m_StartMass = 0.1f;
             if (m_Active) return;
 
-            m_Ball.SetMass(m_StartMass = 15f * value);
+            m_Ball.SetMass(m_StartMass);
         }
 
         public void SetBallStartXVel(float value)
         {
+            m_StartXVel = value * 0.2f;
             if (m_Active) return;
 
-            m_Ball.SetStartVelo(new Vector3(m_StartXVel = value, m_StartYVel));
+            m_Ball.SetStartVelo(new Vector3(m_StartXVel, m_StartYVel));
         }
 
         public void SetBallStartYVel(float value)
         {
+            m_StartYVel = value * 0.2f;
             if (m_Active) return;
 
-            m_Ball.SetStartVelo(new Vector3(m_StartXVel, m_StartYVel = value));
+            m_Ball.SetStartVelo(new Vector3(m_StartXVel, m_StartYVel));
         }
 
         public void StartSimulation()
@@ -72,6 +77,14 @@ namespace PhysicsAssignments.Menu
 
         public void Reset()
         {
+            if (!m_Active) return;
+
+            m_Ball.SetStartVelo(new Vector3(m_StartXVel, m_StartYVel));
+            m_Ball.SetMass(m_StartMass);
+            Vector3 pos = m_Ball.transform.position;
+            pos.y = m_StartHeight;
+            m_Ball.transform.position = pos;
+
             m_Active = false;
             m_Ball.Reset();
         }
