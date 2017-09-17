@@ -10,7 +10,7 @@ namespace PhysicsAssignments.Menu
         #region Private fields
 
         Ball[] m_Balls;
-        float m_ForceMulti = 1.0f;
+        float m_ForceMulti = 0.1f;
 
         #endregion
 
