@@ -36,9 +36,6 @@ namespace PhysicsAssignments.Object
 
         void FixedUpdate()
         {
-            if (!m_active)
-                return;
-
             if (transform.position.y > m_ground)
             {
                 m_body.Velocity += Constants.GRAVITY * Time.fixedDeltaTime;
@@ -48,7 +45,7 @@ namespace PhysicsAssignments.Object
 
             if (transform.position.y < m_ground && !m_hitGround)
             {
-                m_body.Velocity = new Vector3(m_body.Velocity.x*0.5f, m_body.Velocity.y*-0.5f);
+                m_body.Velocity = new Vector3(m_body.Velocity.x * 0.5f, m_body.Velocity.y * -0.5f);
                 m_hitGround = true;
 
                 if (m_body.Velocity.magnitude < 0.01f)
@@ -59,6 +56,11 @@ namespace PhysicsAssignments.Object
             }
 
             transform.position += m_body.Velocity * Time.fixedDeltaTime;
+        }
+
+        public void AddForce(Vector3 force)
+        {
+            m_body.Velocity += force;
         }
 
         public void Activate()
