@@ -11,6 +11,7 @@ namespace PhysicsAssignments.Menu
 
         Ball[] m_Balls;
         float m_ForceMulti = 0.1f;
+        Ball m_SelectedBall = null;
 
         #endregion
 
@@ -25,23 +26,26 @@ namespace PhysicsAssignments.Menu
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0.0f;
-                Ball selectedBall = null;
-                float selectDist = Mathf.Infinity;
-                foreach(Ball ball in m_Balls)
+                if (!m_SelectedBall)
                 {
-                    Vector3 pos = ball.transform.position;
-                    pos.z = 0.0f;
-
-                    float dist = Vector3.Distance(pos, mousePos);
-                    if (dist < selectDist)
+                    float selectDist = Mathf.Infinity;
+                    foreach (Ball ball in m_Balls)
                     {
-                        selectedBall = ball;
-                        selectDist = dist;
+                        Vector3 pos = ball.transform.position;
+                        pos.z = 0.0f;
+
+                        float dist = Vector3.Distance(pos, mousePos);
+                        if (dist < selectDist)
+                        {
+                            m_SelectedBall = ball;
+                            selectDist = dist;
+                        }
                     }
                 }
 
-                selectedBall.AddForce((mousePos - selectedBall.transform.position).normalized * m_ForceMulti);
+                m_SelectedBall.AddForce((mousePos - m_SelectedBall.transform.position).normalized * m_ForceMulti);
             }
+            else m_SelectedBall = null;
         }
 
         public void SetForceMulti(float multi)
@@ -49,9 +53,12 @@ namespace PhysicsAssignments.Menu
             m_ForceMulti = multi;
         }
 
-        public void SetSpringMode(int mode)
+        public void ToggleGravity()
         {
-
+            foreach(Ball ball in m_Balls)
+            {
+                ball.ToggleGravity();
+            }
         }
     }
 }
