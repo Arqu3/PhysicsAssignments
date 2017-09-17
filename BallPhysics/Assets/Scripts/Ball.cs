@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq.Expressions;
+using UnityEngine;
 
 namespace PhysicsAssignments.Object
 {
@@ -7,7 +8,7 @@ namespace PhysicsAssignments.Object
         #region Private exposed fields
 
         [Header("Mass (KG)")]
-        [Range(0.0f, 15.0f)]
+        //[Range(0.0f, 15.0f)]
         [SerializeField]
         float m_Mass = 10.0f;
 
@@ -36,8 +37,8 @@ namespace PhysicsAssignments.Object
 
         void FixedUpdate()
         {
-            if (!m_active)
-                return;
+            //if (!m_active)
+            //    return;
 
             if (transform.position.y > m_ground)
             {
@@ -58,6 +59,8 @@ namespace PhysicsAssignments.Object
                 }
             }
 
+            m_body.Velocity += m_body.Acceleration*Time.fixedDeltaTime;
+            m_body.Acceleration *= 0.3f;
             transform.position += m_body.Velocity * Time.fixedDeltaTime;
         }
 
@@ -86,6 +89,11 @@ namespace PhysicsAssignments.Object
         {
             m_body.Velocity = v;
             m_startVelo = v;
+        }
+
+        public void AddAcceleration(Vector3 a)
+        {
+            m_body.Acceleration += a; // / m_Mass; 
         }
     }
 }
