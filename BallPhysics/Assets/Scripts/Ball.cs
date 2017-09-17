@@ -41,7 +41,7 @@ namespace PhysicsAssignments.Object
 
             if (transform.position.y > m_ground)
             {
-                m_body.Velocity += m_Mass*Constants.GRAVITY/100.0f*Time.fixedDeltaTime;
+                m_body.Velocity += Constants.GRAVITY * Time.fixedDeltaTime;
                 m_hitGround = false;
             }
                 
@@ -58,7 +58,7 @@ namespace PhysicsAssignments.Object
                 }
             }
 
-            transform.position += m_body.Velocity;
+            transform.position += m_body.Velocity * Time.fixedDeltaTime;
         }
 
         public void Activate()
