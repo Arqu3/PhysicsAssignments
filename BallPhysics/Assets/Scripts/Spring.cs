@@ -16,23 +16,15 @@ public class Spring : MonoBehaviour
 
     void FixedUpdate()
     {
-        k = -1f;
         var x = Vector2.Distance(m_balls[0].transform.position, m_balls[1].transform.position);
-
-        
-
-        if (x < m_distance)
-        {
-            return;
-        }
 
         var p1 = m_balls[0].transform.position - m_balls[1].transform.position;
         p1.Normalize();
         var p2 = m_balls[1].transform.position - m_balls[0].transform.position;
         p2.Normalize();
-        var force1 = -k * (x - m_distance) * (p2 / x) - 0.01f * (m_balls[0].getVelo() - m_balls[1].getVelo());
-        var force2 = -k * (x - m_distance) * (p1 / x) - 0.01f * (m_balls[1].getVelo() - m_balls[0].getVelo());
-        m_balls[0].AddAcceleration(force1 / Time.fixedDeltaTime);
-        m_balls[1].AddAcceleration(force2 / Time.fixedDeltaTime);
+        var force1 = -k*(x - m_distance)*(p2/x) - 0.01f * (m_balls[0].getVelo() - m_balls[1].getVelo());
+        var force2 = -k*(x - m_distance)*(p1/x) - 0.01f * (m_balls[1].getVelo() - m_balls[0].getVelo());
+        m_balls[0].AddAcceleration(force1 );
+        m_balls[1].AddAcceleration(force2 );
     }
 }

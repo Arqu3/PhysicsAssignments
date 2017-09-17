@@ -58,7 +58,7 @@ namespace PhysicsAssignments.Object
 
             m_body.Velocity += m_body.Acceleration*Time.fixedDeltaTime;
             transform.position += m_body.Velocity * Time.fixedDeltaTime;
-            m_body.Acceleration *= 0.3f;
+            m_body.Acceleration *= 0.6f;
             m_body.Velocity *= 0.95f;
         }
 
