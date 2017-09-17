@@ -48,5 +48,10 @@ namespace PhysicsAssignments.Menu
         {
             m_ForceMulti = multi;
         }
+
+        public void SetSpringMode(int mode)
+        {
+
+        }
     }
 }
