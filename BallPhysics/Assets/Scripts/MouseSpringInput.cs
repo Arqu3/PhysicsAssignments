@@ -22,6 +22,8 @@ namespace PhysicsAssignments.Menu
 
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
+
             if (Input.GetMouseButton(1))
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
