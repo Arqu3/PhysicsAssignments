@@ -42,32 +42,27 @@ namespace PhysicsAssignments.Object
             transform.position += m_body.Velocity * Time.fixedDeltaTime;
 
             if (m_gravity)
+                m_body.Velocity += Constants.GRAVITY * Time.fixedDeltaTime;
+
+
+            if (transform.position.y > m_ground)
             {
-                if (transform.position.y > m_ground)
-                {
-                    m_body.Velocity += Constants.GRAVITY*Time.fixedDeltaTime;
-                    m_hitGround = false;
-                    m_body.Velocity += m_body.Acceleration*Time.fixedDeltaTime;
-                }
-
-
-                if (transform.position.y < m_ground && !m_hitGround)
-                {
-                    m_body.Velocity = new Vector3(m_body.Velocity.x*0.5f, m_body.Velocity.y*-0.5f);
-                    m_hitGround = true;
-
-                    if (m_body.Velocity.magnitude < 0.01f)
-                    {
-                        m_body.Velocity = Vector3.zero;
-                        transform.position = new Vector3(transform.position.x, m_ground);
-
-                        m_body.Velocity += m_body.Acceleration*Time.fixedDeltaTime;
-                    }
-                }
-            }
-            else
-            {
+                
+                m_hitGround = false;
                 m_body.Velocity += m_body.Acceleration * Time.fixedDeltaTime;
+            }
+            else if (transform.position.y < m_ground && !m_hitGround)
+            {
+                m_body.Velocity = new Vector3(m_body.Velocity.x * 0.5f, m_body.Velocity.y * -0.5f);
+                m_hitGround = true;
+
+                if (m_body.Velocity.magnitude < 0.01f)
+                {
+                    m_body.Velocity = Vector3.zero;
+                    transform.position = new Vector3(transform.position.x, m_ground);
+
+                    m_body.Velocity += m_body.Acceleration * Time.fixedDeltaTime;
+                }
             }
 
             m_body.Acceleration *= 0.6f;
