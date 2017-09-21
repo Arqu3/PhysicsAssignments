@@ -39,6 +39,8 @@ namespace PhysicsAssignments.Object
 
         void FixedUpdate()
         {
+            transform.position += m_body.Velocity * Time.fixedDeltaTime;
+
             if (m_gravity)
             {
                 if (transform.position.y > m_ground)
@@ -68,14 +70,13 @@ namespace PhysicsAssignments.Object
                 m_body.Velocity += m_body.Acceleration * Time.fixedDeltaTime;
             }
 
-            transform.position += m_body.Velocity * Time.fixedDeltaTime;
             m_body.Acceleration *= 0.6f;
             m_body.Velocity *= 0.95f;
         }
 
         public void AddForce(Vector3 force)
         {
-            m_body.Velocity += force;
+            m_body.Velocity += force*1000 / m_Mass * Time.deltaTime;
         }
 
         public void Activate()
@@ -115,9 +116,9 @@ namespace PhysicsAssignments.Object
             m_startVelo = v;
         }
 
-        public void AddAcceleration(Vector3 a)
+        public void AddSpringForce(Vector3 f)
         {
-            m_body.Acceleration += a * 100 / m_Mass; 
+            m_body.Velocity += f * 100 / m_Mass * Time.deltaTime; 
         }
     }
 }
