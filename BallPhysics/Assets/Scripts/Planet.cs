@@ -12,12 +12,15 @@ public class Planet : MonoBehaviour {
 
     [SerializeField]
     Planet m_GravitationalSource;
+    [SerializeField]
+    float m_Mass = 10.0f;
 
     [SerializeField]
     bool m_Moon = false;
 
     void Awake () {
         m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
+        SetMass (m_Mass);
     }
 	
 	void FixedUpdate () {
