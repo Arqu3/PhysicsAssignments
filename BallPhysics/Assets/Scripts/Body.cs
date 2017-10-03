@@ -10,6 +10,8 @@ namespace PhysicsAssignments
         Vector3 m_Velocity;
         Vector3 m_Acceleration;
 
+        private float m_Mass;
+
         #endregion
 
         /// <summary>
@@ -69,6 +71,12 @@ namespace PhysicsAssignments
             {
                 m_Acceleration = value;
             }
+        }
+
+        public float Mass
+        {
+            get { return m_Mass; }
+            set { m_Mass = value; }
         }
     }
 }
