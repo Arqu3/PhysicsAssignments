@@ -9,11 +9,10 @@ public class Planet : MonoBehaviour {
     
     private bool m_gravity = false;
 
-    void Start () {
+    void Awake () {
         m_body = new Body(transform.position, Vector3.zero, Vector3.zero);
     }
 	
-	// Update is called once per frame
 	void FixedUpdate () {
         transform.position += m_body.Velocity * Time.fixedDeltaTime;
         m_body.Velocity *= 0.9f;
