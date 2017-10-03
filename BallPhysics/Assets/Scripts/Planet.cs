@@ -4,10 +4,11 @@ using UnityEngine;
 public class Planet : MonoBehaviour {
 
     private Vector3 m_startVelo;
+    Vector3 m_Direction = Vector3.zero;
 
     private Body m_body;
     
-    private bool m_gravity = false;
+    private bool m_gravity = true;
 
     [SerializeField]
     Planet m_GravitationalSource;
@@ -20,18 +21,16 @@ public class Planet : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
-        Vector3 diff = m_GravitationalSource.transform.position - transform.position;
-        Vector3 dir = diff.normalized;
-        float force = ( m_GravitationalSource.GetMass () * GetMass () * -9.82f ) / diff.sqrMagnitude;
-        AddForce (dir * force);
-
-        if (m_Moon)
-        {
-            AddForce (Quaternion.AngleAxis (90.0f, Vector3.up) * dir * 100f);
-        }
-
         transform.position += m_body.Velocity * Time.fixedDeltaTime;
         m_body.Velocity *= 0.9f;
+
+        Vector3 diff = m_GravitationalSource.transform.position - transform.position;
+        if ( m_gravity ) m_Direction = diff.normalized;
+        float force = ( m_GravitationalSource.GetMass () * GetMass () * -9.82f ) / diff.sqrMagnitude;
+
+        if ( m_gravity ) AddForce (m_Direction * force);
+
+        if ( m_Moon ) AddForce (Quaternion.AngleAxis (90.0f, Vector3.up) * m_Direction * 50.0f);
     }
 
     public void SetMass(float m)
@@ -47,5 +46,10 @@ public class Planet : MonoBehaviour {
     public void AddForce(Vector3 f)
     {
         m_body.Velocity += f / m_body.Mass * Time.deltaTime;
+    }
+
+    public void ToggleGravity()
+    {
+        m_gravity = !m_gravity;
     }
 }

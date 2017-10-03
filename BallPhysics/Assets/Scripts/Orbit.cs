@@ -13,9 +13,9 @@ public class Orbit : MonoBehaviour
 
     void Start()
     {
-        m_source1.SetMass(81f);
+        m_source1.SetMass(20f);
         m_source2.SetMass(1f);
-        m_source2.AddForce(new Vector3(0,10,0));
+        //m_source2.AddForce(new Vector3(0,10,0));
     }
 
     //void Update()
